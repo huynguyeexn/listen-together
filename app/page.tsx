@@ -1,8 +1,82 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Children } from "react";
+import { Children, LegacyRef, useEffect, useRef, useState } from "react";
+import YouTube, { type YouTubeProps, type YouTubePlayer } from "react-youtube";
+
+const getNextVideoId = async () => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve("AdbrfoxiAtk");
+    }, 1000)
+  );
+};
 
 export default function Home() {
+  // const [url, setUrl] = useState("");
+  const videoId = useRef("1O0yazhqaxs");
+  const playerRef = useRef<LegacyRef<YouTube> | undefined>();
+  const [isMute, setIsMute] = useState(true);
+
+  useEffect(() => {
+    videoId.current = "1O0yazhqaxs";
+  }, []);
+
+  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+    // access to player in all event handlers via event.target
+    console.log(playerRef);
+
+    event.target.mute();
+  };
+  const onStateChange: YouTubeProps["onStateChange"] = async (event) => {
+    const player = event.target as YouTubePlayer;
+    const currentState = event.target.getPlayerState() as Number;
+    // access to player in all event handlers via event.target
+    // event.target.mute();
+    // -1 (unstarted)
+    // 0 (ended)
+    // 1 (playing)
+    // 2 (paused)
+    // 3 (buffering)
+    // 5 (video cued).
+
+    // ended
+    if (currentState == 0) {
+      console.log(currentState);
+      const response = await getNextVideoId();
+      videoId.current = response as string;
+      player.loadVideoById(videoId.current);
+    }
+
+    // playing
+    if (currentState == 1) {
+      console.log(player);
+    }
+
+    // paused
+    if (currentState == 2) {
+      console.log(player.playVideo());
+    }
+  };
+
+  const handleMuteCLick = () => {
+    // playerRef.current?.unmute();
+    console.log(playerRef.current);
+
+    if (!playerRef.current) return;
+
+    const youtube = playerRef.current as unknown as YouTube;
+    const player = youtube.getInternalPlayer();
+
+    if (isMute) {
+      setIsMute(false);
+      player.unMute();
+    } else {
+      setIsMute(true);
+      player.mute();
+    }
+  };
+
   return (
     <div className="container h-screen w-full flex justify-center items-center mx-auto ">
       <div className="grid grid-cols-12 w-full gap-8  p-8 rounded-3xl subpixel-antialiased  justify-between bg-background/30 backdrop-blur backdrop-saturate-150">
@@ -18,6 +92,16 @@ export default function Home() {
             <div className="button-wrapper">
               <button className="button" type="button">
                 Add
+              </button>
+              <div className="button-bg"></div>
+            </div>
+            <div className="button-wrapper">
+              <button
+                className="button"
+                type="button"
+                onClick={handleMuteCLick}
+              >
+                {isMute ? "Unmute" : "Mute"}
               </button>
               <div className="button-bg"></div>
             </div>
@@ -66,17 +150,27 @@ export default function Home() {
         </div>
         <div className="player-wrapper col-span-4 flex flex-col gap-4 justify-between">
           <div className="player rounded-2xl overflow-hidden w-full aspect-video bg-black">
-            <iframe
+            <YouTube
+              className="aspect-video w-full h-full pointer-events-auto"
+              videoId={videoId.current}
+              ref={playerRef as LegacyRef<YouTube>}
               style={{
                 height: "100%",
                 width: "100%",
               }}
-              src="https://www.youtube.com/embed/lBb8jI6bS2U?si=dCtqExltdaNdG3YU"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              // referrerpolicy="strict-origin-when-cross-origin"
-              // allowfullscreen
-            ></iframe>
+              opts={{
+                borderRadius: "2rem",
+                playerVars: {
+                  autoplay: 1,
+                  controls: 0,
+                  disablekb: 0,
+                  showinfo: 0,
+                },
+              }}
+              iframeClassName=" w-full h-full pointer-events-auto"
+              onStateChange={onStateChange}
+              onReady={onPlayerReady}
+            />
           </div>
           {/* <div>Profile</div> */}
         </div>
