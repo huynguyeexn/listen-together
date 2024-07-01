@@ -74,8 +74,8 @@ export default function Home() {
               src="https://www.youtube.com/embed/lBb8jI6bS2U?si=dCtqExltdaNdG3YU"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
+              // referrerpolicy="strict-origin-when-cross-origin"
+              // allowfullscreen
             ></iframe>
           </div>
           {/* <div>Profile</div> */}
