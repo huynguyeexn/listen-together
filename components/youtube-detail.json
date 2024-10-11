@@ -1,0 +1,64 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "Oq7EUHyNxhed1wtJ6Vd1bqvBU8I",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "5dXte6GAK8ibfayahuNJ61j_t-U",
+      "id": "sO65YihyZac",
+      "snippet": {
+        "publishedAt": "2020-09-28T09:53:37Z",
+        "channelId": "UCb1RNo9Fw-JwKE-UEsFgz-A",
+        "title": "Simple 10 second countdown 4K with beep",
+        "description": "Simple white numbers on black background 10 second countdown UHD 4K resolution with audio beep.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sO65YihyZac/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sO65YihyZac/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sO65YihyZac/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/sO65YihyZac/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/sO65YihyZac/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Audfiz",
+        "categoryId": "22",
+        "liveBroadcastContent": "none",
+        "localized": {
+          "title": "Simple 10 second countdown 4K with beep",
+          "description": "Simple white numbers on black background 10 second countdown UHD 4K resolution with audio beep."
+        }
+      },
+      "contentDetails": {
+        "duration": "PT11S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "false",
+        "licensedContent": false,
+        "contentRating": {},
+        "projection": "rectangular"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
